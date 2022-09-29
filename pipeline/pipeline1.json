@@ -36,12 +36,18 @@
 						"type": "TabularTranslator",
 						"mappings": [
 							{
+								"source": {
+									"name": ""
+								},
 								"sink": {
 									"name": "Make",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
+								"source": {
+									"name": ""
+								},
 								"sink": {
 									"name": "Length",
 									"physicalType": "decimal",
