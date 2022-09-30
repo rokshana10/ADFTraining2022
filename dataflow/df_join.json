@@ -10,6 +10,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "Movies"
+				},
+				{
+					"dataset": {
+						"referenceName": "Movies_DSI",
+						"type": "DatasetReference"
+					},
+					"name": "MoviesDB"
 				}
 			],
 			"sinks": [],
@@ -27,6 +34,14 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> Movies",
+				"source(output(",
+				"          movieId as string,",
+				"          title as string,",
+				"          genres as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> MoviesDB",
 				"Movies derive(titleNew = toString(left(title,length(title)-6))) ~> MoviesClean"
 			]
 		}
