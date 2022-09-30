@@ -20,7 +20,14 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "MovieClean"
+				},
+				{
+					"name": "JoinMovies"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          movieId as string,",
@@ -40,7 +47,13 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> MoviesDBDS"
+				"     ignoreNoFilesFound: false) ~> MoviesDBDS",
+				"MoviesDSI derive(TitlelNew = toString(left(title,length(title)-6))) ~> MovieClean",
+				"MoviesDSI, MoviesDBDS join(movieId == Column_1,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> JoinMovies"
 			]
 		}
 	}
