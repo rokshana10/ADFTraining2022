@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "dfaggDreive",
+				"name": "dfAggDerive",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
