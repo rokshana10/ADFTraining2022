@@ -1,0 +1,15 @@
+{
+	"name": "df_agg_derive",
+	"properties": {
+		"description": "dataflow is create to learn aggregator and derive activity",
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				""
+			]
+		}
+	}
+}
