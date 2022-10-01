@@ -202,8 +202,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "op.csv",
-						"container": "input"
+						"container": "output"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
