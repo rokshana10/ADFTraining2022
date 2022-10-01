@@ -53,7 +53,7 @@
 				"Moviesv1 derive(year = toInteger(trim(right(title, 6), '()')),",
 				"          title = toString(left(title,length(title)-6))) ~> ExtractYearTitle",
 				"ExtractYearTitle aggregate(groupBy(year),",
-				"     MoviesCnt = ERROR_FUNCTION('')) ~> RatingByYear",
+				"     MoviesCnt = count(year)) ~> RatingByYear",
 				"ExtractYearTitle sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
