@@ -29,9 +29,23 @@
 				}
 			},
 			{
-				"name": "ForEachTableList",
+				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": []
+				"dependsOn": [
+					{
+						"activity": "GetTable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('GetTable').output.value",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"annotations": []
