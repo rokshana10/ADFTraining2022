@@ -84,7 +84,7 @@
 				"     format: 'table') ~> DimCustomer",
 				"CustomerSource derive(HashKey = ERROR_FUNCTION('sha2(256,iifNull(Title,__SINGLE_QUOTE____SINGLE_QUOTE__)+iifNull(FirstName,__SINGLE_QUOTE____SINGLE_QUOTE__)+iifNull(MiddleName),__SINGLE_QUOTE____SINGLE_QUOTE__)+iifNull(LastName,__SINGLE_QUOTE____SINGLE_QUOTE__)+iifNull(Suffix,__SINGLE_QUOTE____SINGLE_QUOTE__) +iifNull(CompanyName,__SINGLE_QUOTE____SINGLE_QUOTE__) +iifNull(SalesPerson,__SINGLE_QUOTE____SINGLE_QUOTE__) +iifNull(EmailAddress,__SINGLE_QUOTE____SINGLE_QUOTE__) +iifNull(Phone,__SINGLE_QUOTE____SINGLE_QUOTE__))')) ~> CreateHashKey",
 				"CreateHashKey, DimCustomer exists(CreateHashKey@HashKey == DimCustomer@HashKey,",
-				"     negate:false,",
+				"     negate:true,",
 				"     broadcast: 'auto')~> Exist",
 				"Exist, DimCustomer lookup(CustomerSource@CustomerID == DimCustomer@CustomerID,",
 				"     multiple: false,",
