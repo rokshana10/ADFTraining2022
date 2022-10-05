@@ -27,6 +27,12 @@
 				},
 				{
 					"name": "Exist"
+				},
+				{
+					"name": "lookupCustomerId"
+				},
+				{
+					"name": "SetDates"
 				}
 			],
 			"scriptLines": [
@@ -68,7 +74,13 @@
 				"CustomerSource derive(HashKey = ERROR_FUNCTION('sha(256,iifNull(Title,__SINGLE_QUOTE____SINGLE_QUOTE__)+iifNull(FirstName,__SINGLE_QUOTE____SINGLE_QUOTE__)+iifNull(MiddleName),__SINGLE_QUOTE____SINGLE_QUOTE__)+iifNull(LastName,__SINGLE_QUOTE____SINGLE_QUOTE__)+iifNull(Suffix,__SINGLE_QUOTE____SINGLE_QUOTE__) +iifNull(CompanyName,__SINGLE_QUOTE____SINGLE_QUOTE__) +iifNull(SalesPerson,__SINGLE_QUOTE____SINGLE_QUOTE__) +iifNull(EmailAddress,__SINGLE_QUOTE____SINGLE_QUOTE__) +iifNull(Phone,__SINGLE_QUOTE____SINGLE_QUOTE__))')) ~> CreateHashKey",
 				"CreateHashKey, DimCustomer exists(CreateHashKey@HashKey == DimCustomer@HashKey,",
 				"     negate:false,",
-				"     broadcast: 'auto')~> Exist"
+				"     broadcast: 'auto')~> Exist",
+				"Exist, DimCustomer lookup(CustomerSource@CustomerID == DimCustomer@CustomerID,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookupCustomerId",
+				"lookupCustomerId derive(InsertedDate = iifNull(InsertedDate, currentTimestamp(), InsertedDate),",
+				"          ModifiedDate = currentTimestamp()) ~> SetDates"
 			]
 		}
 	}
