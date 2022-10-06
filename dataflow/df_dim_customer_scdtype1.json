@@ -82,7 +82,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> DimCustomer",
-				"CustomerSource derive(HashKey = sha2(256,iifNull(Title,'')+iifNull(FirstName,'')+iifNull(MiddleName),'')+iifNull(LastName,'')+iifNull(Suffix,'')+iifNull(CompanyName,'')+iifNull(SalesPerson,'')+iifNull(EmailAddress,'')+iifNull(Phone,'')) ~> CreateHashKey",
+				"CustomerSource derive(HashKey = sha2(256,iifNull(Title,'')+iifNull(FirstName,'')+iifNull(MiddleName,'')+iifNull(LastName,'')+iifNull(Suffix,'')+iifNull(CompanyName,'')+iifNull(SalesPerson,'')+iifNull(EmailAddress,'')+iifNull(Phone,''))) ~> CreateHashKey",
 				"CreateHashKey, DimCustomer exists(CreateHashKey@HashKey == DimCustomer@HashKey,",
 				"     negate:true,",
 				"     broadcast: 'auto')~> Exist",
