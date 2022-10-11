@@ -1,0 +1,69 @@
+{
+	"name": "df_dim_customer_scdtype2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "CustomerSourceV1",
+						"type": "DatasetReference"
+					},
+					"name": "CustomerSourceV1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DimCustomerV1",
+						"type": "DatasetReference"
+					},
+					"name": "DimCustomerV1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "CreateHashKey"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CustomerID as integer,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> CustomerSourceV1",
+				"source(output(",
+				"          SurrKey as integer,",
+				"          CustomerID as integer,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string,",
+				"          InsertedDate as timestamp,",
+				"          ModifiedDate as timestamp,",
+				"          IsActive as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> DimCustomerV1",
+				"CustomerSourceV1 derive(PrimaryKey = sha2(256,iifNull(Title, '')+iifNull(FirstName, '')+ '')+iifNull(MiddleName, '')+iifNull(LastName, '')+iifNull(Suffix, '')+iifNull(CompanyName,'')+iifNull(SalesPerson, '')+iifNull(EmailAddress, '')+iifNull(Phone,'')) ~> CreateHashKey"
+			]
+		}
+	}
+}
