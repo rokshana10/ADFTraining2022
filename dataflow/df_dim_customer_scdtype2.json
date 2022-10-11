@@ -22,7 +22,10 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "CreateHashKey"
+					"name": "CreatePrimaryKey"
+				},
+				{
+					"name": "Exist"
 				}
 			],
 			"scriptLines": [
@@ -62,7 +65,10 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> DimCustomerV1",
-				"CustomerSourceV1 derive(PrimaryKey = sha2(256,iifNull(Title, '')+iifNull(FirstName, '')+ '')+iifNull(MiddleName, '')+iifNull(LastName, '')+iifNull(Suffix, '')+iifNull(CompanyName,'')+iifNull(SalesPerson, '')+iifNull(EmailAddress, '')+iifNull(Phone,'')) ~> CreateHashKey"
+				"CustomerSourceV1 derive(PrimaryKey = sha2(256,iifNull(Title, '')+iifNull(FirstName, '')+ '')+iifNull(MiddleName, '')+iifNull(LastName, '')+iifNull(Suffix, '')+iifNull(CompanyName,'')+iifNull(SalesPerson, '')+iifNull(EmailAddress, '')+iifNull(Phone,'')) ~> CreatePrimaryKey",
+				"CustomerSourceV1, DimCustomerV1 exists(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     negate:true,",
+				"     broadcast: 'auto')~> Exist"
 			]
 		}
 	}
