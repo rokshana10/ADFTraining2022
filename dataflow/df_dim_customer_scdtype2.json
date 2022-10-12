@@ -10,6 +10,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DimCustomerV1",
+						"type": "DatasetReference"
+					},
+					"name": "DimCustomer"
 				}
 			],
 			"sinks": [
@@ -44,6 +51,26 @@
 				"     inferDriftedColumnTypes: true,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source1",
+				"source(output(",
+				"          SurrKey as integer,",
+				"          CustomerID as integer,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string,",
+				"          InsertedDate as timestamp,",
+				"          ModifiedDate as timestamp,",
+				"          IsActive as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> DimCustomer",
 				"source1 derive(isActive = 1,",
 				"          InsertedDate = currentTimestamp(),",
 				"          ModifiedDate = currentTimestamp()) ~> derivedColumn6",
