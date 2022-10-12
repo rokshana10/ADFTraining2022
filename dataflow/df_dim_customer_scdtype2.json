@@ -36,7 +36,9 @@
 				"     inferDriftedColumnTypes: true,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> source1",
-				"source1 derive() ~> derivedColumn6"
+				"source1 derive(isActive = 1,",
+				"          InsertedDate = currentTimestamp(),",
+				"          ModifiedDate = currentTimestamp()) ~> derivedColumn6"
 			]
 		}
 	}
