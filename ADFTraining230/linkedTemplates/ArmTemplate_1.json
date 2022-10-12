@@ -183,6 +183,12 @@
 						},
 						{
 							"name": "ExistingRows"
+						},
+						{
+							"name": "select1"
+						},
+						{
+							"name": "derivedColumn1"
 						}
 					],
 					"scriptLines": [
@@ -248,6 +254,35 @@
 						"     multiple: true,",
 						"     broadcast: 'auto')~> lookup1",
 						"lookup1 filter(!isNull(Lkp_CustomerID)) ~> ExistingRows",
+						"ExistingRows select(mapColumn(",
+						"          CustomerID,",
+						"          Title,",
+						"          FirstName,",
+						"          MiddleName,",
+						"          LastName,",
+						"          Suffix,",
+						"          CompanyName,",
+						"          SalesPerson,",
+						"          EmailAddress,",
+						"          Phone,",
+						"          Lkp_SurrKey,",
+						"          Lkp_CustomerID,",
+						"          Lkp_Title,",
+						"          Lkp_FirstName,",
+						"          Lkp_MiddleName,",
+						"          Lkp_LastName,",
+						"          Lkp_Suffix,",
+						"          Lkp_CompanyName,",
+						"          Lkp_SalesPerson,",
+						"          Lkp_EmailAddress,",
+						"          Lkp_Phone,",
+						"          Lkp_InsertedDate,",
+						"          Lkp_ModifiedDate,",
+						"          Lkp_IsActive",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"select1 derive({is Active} = 0) ~> derivedColumn1",
 						"AddingisActive sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
