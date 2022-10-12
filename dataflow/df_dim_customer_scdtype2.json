@@ -9,7 +9,7 @@
 						"referenceName": "CustomerSourceV1",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "CustomerSource"
 				},
 				{
 					"dataset": {
@@ -53,7 +53,7 @@
 				"     validateSchema: false,",
 				"     inferDriftedColumnTypes: true,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> source1",
+				"     format: 'table') ~> CustomerSource",
 				"source(output(",
 				"          SurrKey as integer,",
 				"          CustomerID as integer,",
@@ -74,7 +74,7 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> DimCustomer",
-				"source1 derive(isActive = 1,",
+				"CustomerSource derive(isActive = 1,",
 				"          InsertedDate = currentTimestamp(),",
 				"          ModifiedDate = currentTimestamp()) ~> derivedColumn6",
 				"DimCustomer select(mapColumn(",
