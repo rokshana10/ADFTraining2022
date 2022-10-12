@@ -25,15 +25,21 @@
 						"referenceName": "DimCustomerV1",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "sinkInsert"
 				}
 			],
 			"transformations": [
 				{
-					"name": "derivedColumn6"
+					"name": "AddingisActive"
 				},
 				{
 					"name": "Alias"
+				},
+				{
+					"name": "lookup1"
+				},
+				{
+					"name": "ExistingRows"
 				}
 			],
 			"scriptLines": [
@@ -76,7 +82,7 @@
 				"     format: 'table') ~> DimCustomer",
 				"CustomerSource derive(isActive = 1,",
 				"          InsertedDate = currentTimestamp(),",
-				"          ModifiedDate = currentTimestamp()) ~> derivedColumn6",
+				"          ModifiedDate = currentTimestamp()) ~> AddingisActive",
 				"DimCustomer select(mapColumn(",
 				"          Lkp_SurrKey = SurrKey,",
 				"          Lkp_CustomerID = CustomerID,",
@@ -95,7 +101,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> Alias",
-				"derivedColumn6 sink(allowSchemaDrift: true,",
+				"CustomerSource, Alias lookup(CustomerID == Lkp_CustomerID,",
+				"     multiple: true,",
+				"     broadcast: 'auto')~> lookup1",
+				"lookup1 filter(!isNull(Lkp_CustomerID)) ~> ExistingRows",
+				"AddingisActive sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          SurrKey as integer,",
@@ -135,7 +145,7 @@
 				"          InsertedDate,",
 				"          ModifiedDate,",
 				"          IsActive = isActive",
-				"     )) ~> sink1"
+				"     )) ~> sinkInsert"
 			]
 		}
 	}
