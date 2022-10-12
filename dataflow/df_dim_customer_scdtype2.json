@@ -43,6 +43,9 @@
 				},
 				{
 					"name": "select1"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -136,6 +139,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 derive({is Active} = 0) ~> derivedColumn1",
 				"AddingisActive sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
