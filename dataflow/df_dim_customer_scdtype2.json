@@ -31,6 +31,9 @@
 			"transformations": [
 				{
 					"name": "derivedColumn6"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -74,6 +77,24 @@
 				"source1 derive(isActive = 1,",
 				"          InsertedDate = currentTimestamp(),",
 				"          ModifiedDate = currentTimestamp()) ~> derivedColumn6",
+				"DimCustomer select(mapColumn(",
+				"          Lkp_SurrKey = SurrKey,",
+				"          Lkp_CustomerID = CustomerID,",
+				"          Lkp_Title = Title,",
+				"          Lkp_FirstName = FirstName,",
+				"          Lkp_MiddleName = MiddleName,",
+				"          Lkp_LastName = LastName,",
+				"          Lkp_Suffix = Suffix,",
+				"          Lkp_CompanyName = CompanyName,",
+				"          Lkp_SalesPerson = SalesPerson,",
+				"          Lkp_EmailAddress = EmailAddress,",
+				"          Lkp_Phone = Phone,",
+				"          Lkp_InsertedDate = InsertedDate,",
+				"          Lkp_ModifiedDate = ModifiedDate,",
+				"          Lkp_IsActive = IsActive",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
 				"derivedColumn6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
