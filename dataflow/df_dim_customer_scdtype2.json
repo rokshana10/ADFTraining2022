@@ -32,7 +32,7 @@
 						"referenceName": "CustomerSourceV1",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "sink2"
 				}
 			],
 			"transformations": [
@@ -176,6 +176,7 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 2,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
 				"          CustomerID,",
@@ -214,6 +215,7 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 1,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
 				"          CustomerID,",
@@ -226,7 +228,7 @@
 				"          SalesPerson,",
 				"          EmailAddress,",
 				"          Phone",
-				"     )) ~> sink1"
+				"     )) ~> sink2"
 			]
 		}
 	}
