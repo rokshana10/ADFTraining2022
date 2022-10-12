@@ -33,7 +33,7 @@
 					"name": "derivedColumn6"
 				},
 				{
-					"name": "select1"
+					"name": "Alias"
 				}
 			],
 			"scriptLines": [
@@ -94,7 +94,7 @@
 				"          Lkp_IsActive = IsActive",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
+				"     skipDuplicateMapOutputs: true) ~> Alias",
 				"derivedColumn6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
